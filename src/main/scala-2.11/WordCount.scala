@@ -24,17 +24,20 @@ object WordCount {
 
   def main(args: Array[String]) {
     val warehouseLocation = "file:${system:user.dir}/spark-warehouse"
+    if (args.length < 2) {
+      System.err.println("You must provide the input folder and the output folder")
+      System.exit(1)
+    }
     val spark = SparkSession
       .builder()
-      .appName("Wordcount")
+      .appName("WordCount")
       .config("spark.sql.warehouse.dir", warehouseLocation)
-      .master("spark://andre-Inspiron-5548:7077")
       .enableHiveSupport()
       .getOrCreate()
-    val shakespeareDF = spark.read.text("/home/andre/Datasets/shakespeare.txt")
+    val shakespeareDF = spark.read.text(args(0) + "/shakespeare.txt")
     val cleanSentencesColumn = removePunctuation(shakespeareDF("value"))
     val shakeWordsDF = lineToWords(shakespeareDF.select(cleanSentencesColumn))
     val result = wordCount(shakeWordsDF).orderBy(desc("count"))
-    result.write.format("com.databricks.spark.csv").option("header", "true").save("/home/andre/Datasets/wordcount.csv")
+    result.write.format("com.databricks.spark.csv").option("header", "true").save(args(1) + "/wordcount")
   }
 }
