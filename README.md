@@ -27,7 +27,7 @@ sbt clean compile assembly
 
 In first place, you must start the master by running *start-master.sh* script. Once the master is running, open the URL
  http://localhost:8080/ to discover the URL of the master, so you can run the slave by running the script
- *start-slave.sh <Apache Spark master URL>*.
+ *start-slave.sh [Apache Spark master URL]*.
 
 Now you're ready to effectively run the application. To do this, just run the following script:
 
