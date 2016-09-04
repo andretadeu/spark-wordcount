@@ -25,7 +25,8 @@ sbt clean compile assembly
 
 ## How to run locally
 
-In first place, you must start the master by running *start-master.sh* script. Once the master is running, open the URL
+In first place, you must create an **input folder**, where you should place [the Shakespeare corpus](https://github.com/andretadeu/spark-wordcount/raw/master/src/main/resources/shakespeare.txt).
+ After that, you must start the master by running *start-master.sh* script. Once the master is running, open the URL
  http://localhost:8080/ to discover the URL of the master, so you can run the slave by running the script
  *start-slave.sh [Apache Spark master URL]*.
 
